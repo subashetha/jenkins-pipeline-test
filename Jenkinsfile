@@ -1,10 +1,14 @@
 pipeline {
     agent any
+    
+    // Add this block so Jenkins knows where 'mvn' is
+    tools {
+        maven 'maven3' 
+    }
 
     stages {
         stage('Build') {
             steps {
-                // This actually compiles your code so Sonar can scan it
                 sh 'mvn clean package -DskipTests'
             }
         }
@@ -19,8 +23,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                // Replace this with your actual AWS deployment command
-                echo 'Deploying to AWS...' 
+                echo 'Deploying to AWS...'
             }
         }
     }
