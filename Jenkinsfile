@@ -1,7 +1,6 @@
 pipeline {
     agent any
     
-    // Add this block so Jenkins knows where 'mvn' is
     tools {
         maven 'maven3' 
     }
@@ -9,14 +8,16 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                // ADD '-f jenkins-pipeline-test/pom.xml' HERE
+                sh 'mvn -f jenkins-pipeline-test/pom.xml clean package -DskipTests'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('My Sonar Server') {
-                    sh 'mvn sonar:sonar'
+                    // ADD '-f jenkins-pipeline-test/pom.xml' HERE TOO
+                    sh 'mvn -f jenkins-pipeline-test/pom.xml sonar:sonar'
                 }
             }
         }
