@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Just 'pom.xml', no folder prefix needed
-                sh 'mvn -f pom.xml clean package -DskipTests'
+                sh 'mvn clean package -DskipTests'
             }
         }
 
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('My Sonar Server') {
                     // Just 'pom.xml' here too
-                    sh 'mvn -f pom.xml sonar:sonar'
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
